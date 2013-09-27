@@ -1,0 +1,24 @@
+{
+  "name": "MyFollowers",
+  "version": "0.0.1",
+  "description": "Track your followers.",
+  "main": "app.js",
+  "dependencies": {
+    "config": "~0.4.30",
+    "express": "~3.4.0",
+    "mongoose": "~3.6.20",
+    "twitter": "~0.2.3",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MiLk/MyFollowers.git"
+  },
+  "author": "Emilien Kenler <hello@emilienkenler.com>",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
