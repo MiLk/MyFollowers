@@ -22,3 +22,15 @@ To obtain your twitter credentials, you have to create a new app on https://dev.
 NODE_ENV=production node app.js
 ```
 
+To make a snapshot of the current follower list of an user:
+
+```
+curl -X POST http://localhost:3000/
+```
+
+To get stats from an user:
+
+```
+curl -i -X GET http://localhost:3000/stats/EmilienMiLk
+```
+
