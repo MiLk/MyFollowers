@@ -25,7 +25,7 @@ NODE_ENV=production node app.js
 To make a snapshot of the current follower list of an user:
 
 ```
-curl -X POST http://localhost:3000/
+curl -X POST http://localhost:3000/ -d "screen_name=EmilienMiLk"
 ```
 
 To get stats from an user:
@@ -34,3 +34,4 @@ To get stats from an user:
 curl -i -X GET http://localhost:3000/stats/EmilienMiLk
 ```
 
+You can open `http://localhost:3000/` in your browser to use the WebUI.
