@@ -11,4 +11,3 @@ followerSchema.index({ screen_name: 1, created_at: -1 });
 
 var Follower = mongoose.model('Follower', followerSchema);
 module.exports = Follower;
-
