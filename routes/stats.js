@@ -12,8 +12,17 @@ module.exports.getStats = function (req, res) {
     created_at: 1,
     lost_followers: 1,
     new_followers: 1
+  }, {
+    sort: { created_at: -1 }
   }, function (err, docs) {
     if (err) return res.send(500, { "message": err.toString() });
+    if (!docs[0]) {
+      twitter.doRefresh(req.params.screen_name, function(err,follower){});
+      return res.send(200, { results: docs, users: [] });
+    }
+    if(((new Date()).getTime() - (new Date(docs[0].created_at)).getTime()) > 15*60*1000) {
+      twitter.doRefresh(req.params.screen_name, function(err,follower){});
+    }
     var ids = _.reduce(docs, function(memo, doc) {
       return memo.concat(doc.lost_followers).concat(doc.new_followers);
     }, []);

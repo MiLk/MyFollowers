@@ -79,20 +79,27 @@ module.exports.updateUserScreenName = updateUserScreenName;
 
 module.exports.refresh = function (req, res) {
   if (!req.body.screen_name) return res.send(400, { "message": "You must provide a screen_name." });
-  var onStats = function (follower) {
+  module.exports.doRefresh(req.body.screen_name, function(err, follower) {
     res.send(200, {
       screen_name: follower.screen_name,
       followers_count: follower.followers.length,
       lost_followers: follower.lost_followers,
       new_followers: follower.new_followers
     });
+  });
+
+};
+
+module.exports.doRefresh = function (screen_name, callback) {
+  var onStats = function (follower) {
+    callback(null, follower);
     var ids = follower.lost_followers.concat(follower.new_followers);
     updateUserScreenName(ids);
   };
   twit.get('/followers/ids.json', {
-    screen_name: req.body.screen_name,
+    screen_name: screen_name,
     cursor: -1
   }, function (data) {
-    onFollowersReceived(req.body.screen_name, data, onStats);
+    onFollowersReceived(screen_name, data, onStats);
   });
 };
