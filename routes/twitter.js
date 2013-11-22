@@ -48,8 +48,7 @@ var onFollowersReceived = function (screen_name, data, callback) {
     });
 };
 
-var updateUserScreenName = function(lost_followers, new_followers) {
-  var ids = lost_followers.concat(new_followers);
+var updateUserScreenName = function(ids) {
   User.find({
     "_id": { "$in": ids }
   }, {
@@ -87,7 +86,8 @@ module.exports.refresh = function (req, res) {
       lost_followers: follower.lost_followers,
       new_followers: follower.new_followers
     });
-    updateUserScreenName(follower.lost_followers, follower.new_followers);
+    var ids = follower.lost_followers.concat(follower.new_followers);
+    updateUserScreenName(ids);
   };
   twit.get('/followers/ids.json', {
     screen_name: req.body.screen_name,

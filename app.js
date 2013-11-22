@@ -14,7 +14,9 @@ app.use(app.router);
 routes(app);
 
 var runApp = function() {
-  app.listen(config.port);
+  app.listen(config.port, function(err) {
+    console.log('MyFollowers is listening to :' + config.port);
+  });
 };
 
 mongoose.connect(config.mongodb);

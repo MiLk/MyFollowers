@@ -61,16 +61,64 @@
       <table class="table table-striped table-hover table-condensed" ng-show="stats">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Lost followers</th>
-            <th>New followers</th>
+            <th>
+              <a ng-click="reverse=((predicate=='created_at')&&!reverse)||
+                          ((predicate!='created_at')&&reverse);
+                          predicate='created_at'">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-up': !reverse, 'glyphicon-chevron-down': reverse}"></span>
+              </a>
+              Date</th>
+            <th>
+              <a ng-click="reverse=((predicate=='lost_followers.length')&&!reverse)||
+                          ((predicate!='lost_followers.length')&&reverse);
+                          predicate='lost_followers.length'">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-up': !reverse, 'glyphicon-chevron-down': reverse}"></span>
+              </a>
+              Lost followers
+            </th>
+            <th>
+              <a ng-click="reverse=((predicate=='new_followers.length')&&!reverse)||
+                          ((predicate!='new_followers.length')&&reverse);
+                          predicate='new_followers.length'">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-up': !reverse, 'glyphicon-chevron-down': reverse}"></span>
+              </a>
+              New followers
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="row in stats">
-            <td>{{ row.created_at | date:'short' }}</td>
-            <td>{{ row.lost_followers.length }}</td>
-            <td>{{ row.new_followers.length }}</td>
+          <tr ng-repeat="row in stats | orderBy:predicate:reverse"
+              ng-class="{ danger: row.lost_followers.length > row.new_followers.length && (display['l'][$index] || display['n'][$index]) ,
+               success: row.lost_followers.length < row.new_followers.length && (display['l'][$index] || display['n'][$index]),
+               warning: row.lost_followers.length == row.new_followers.length && (display['l'][$index] || display['n'][$index])}">
+            <td>{{ row.created_at | date:'dd/MM/yy HH:mm' }}</td>
+            <td ng-mouseover="show('l',$index)" ng-mouseout="hide('l',$index)">
+              {{ row.lost_followers.length }}
+              <div class="infobox" ng-show="row.lost_followers.length > 0 && display['l'][$index]">
+                <ul>
+                  <li ng-repeat="follower in row.lost_followers">
+                    <a href="https://twitter.com/{{ users[follower].screen_name }}" >
+                      {{ users[follower].name }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+            <td ng-mouseover="show('n',$index)" ng-mouseout="hide('n',$index)">
+              {{ row.new_followers.length }}
+              <div class="infobox" ng-show="row.new_followers.length > 0 && display['n'][$index]">
+                <ul>
+                  <li ng-repeat="follower in row.new_followers">
+                    <a href="https://twitter.com/{{ users[follower].screen_name }}" >
+                      {{ users[follower].name }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
