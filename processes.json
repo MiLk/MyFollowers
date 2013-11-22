@@ -1,0 +1,7 @@
+[{
+  "name": "MyFollowers",
+  "script": "./app.js",
+  "error_file": "./err.log",
+  "out_file": "./out.log",
+  "NODE_ENV": "production"
+}]

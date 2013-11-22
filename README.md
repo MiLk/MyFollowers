@@ -19,7 +19,7 @@ To obtain your twitter credentials, you have to create a new app on https://dev.
 ## Usage
 
 ```
-NODE_ENV=production node app.js
+pm2 start processes.json
 ```
 
 To make a snapshot of the current follower list of an user:
