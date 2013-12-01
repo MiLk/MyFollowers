@@ -6,7 +6,11 @@ var _ = require('underscore');
 module.exports.getStats = function (req, res) {
   if (!req.params.screen_name) return res.send(400, { "message": "You must provide a screen_name." });
   Follower.find({
-    screen_name: req.params.screen_name
+    screen_name: req.params.screen_name,
+    "$or": [
+      { lost_followers: { "$not" : { "$size": 0 } } },
+      { new_followers: { "$not" : { "$size": 0 } } }
+    ]
   }, {
     _id: 0,
     created_at: 1,
