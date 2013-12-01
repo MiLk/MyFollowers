@@ -57,8 +57,16 @@ var updateUserScreenName = function(ids) {
     if(err) return console.error(err);
     var unknown = _.difference(ids, _.reduce(docs, function(memo, doc) { return memo.concat(doc.unique_id); }, []));
     if(unknown.length == 0) return;
+    if(unknown.length > 100) {
+      unknown = unknown.splice(100,unknown.length-100);
+    }
+    unknown = unknown.join(',');
+    if(unknown.length > 2048) {
+      unknown = unknown.substr(0,2048);
+      unknown = unknown.substr(0,unknown.lastIndexOf(','));
+    }
     twit.get('/users/lookup.json', {
-      user_id: unknown.join(','),
+      user_id: unknown,
       inlude_entities: false
     }, function(data) {
       data.forEach(function(row) {
