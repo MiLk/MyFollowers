@@ -92,7 +92,7 @@ module.exports.refresh = function (req, res) {
   module.exports.doRefresh(req.body.screen_name, function(err, follower) {
     res.send(200, {
       screen_name: follower.screen_name,
-      followers_count: follower.followers.length,
+      followers_count: (follower.followers ? follower.followers.length : 0),
       lost_followers: follower.lost_followers,
       new_followers: follower.new_followers
     });
