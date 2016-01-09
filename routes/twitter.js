@@ -70,7 +70,7 @@ var updateUserScreenName = function(ids) {
       user_id: unknown,
       inlude_entities: false
     }, function(data) {
-      if(typeof data != 'object') return handleError(data);
+      if(!Array.isArray(data)) return handleError(data);
       data.forEach(function(row) {
         User.update({
           _id: row.id
