@@ -29,4 +29,4 @@ function StatsCtrl($scope, $http) {
     if(!$scope.display[arr]) $scope.display[arr] = [];
     $scope.display[arr][idx] = false;
   };
-};
+}

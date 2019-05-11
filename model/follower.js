@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var followerSchema = mongoose.Schema({
+const followerSchema = mongoose.Schema({
   screen_name    : { type: String, required: true },
   created_at     : { type: Date  , required: true },
   followers      : { type: Array                  },
@@ -9,5 +9,5 @@ var followerSchema = mongoose.Schema({
 });
 followerSchema.index({ screen_name: 1, created_at: -1 });
 
-var Follower = mongoose.model('Follower', followerSchema);
+const Follower = mongoose.model('Follower', followerSchema);
 module.exports = Follower;

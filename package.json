@@ -1,17 +1,21 @@
 {
-  "name": "MyFollowers",
-  "version": "0.0.1",
+  "name": "myfollowers",
+  "version": "0.1.0",
   "description": "Track your followers.",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "config": "~0.4.30",
-    "express": "~3.4.4",
-    "mongoose": "~3.6.20",
-    "twitter": "~0.2.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.7",
+    "morgan": "^1.9.1",
+    "twitter": "^1.7.1",
     "underscore": "~1.5.2"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -19,13 +19,15 @@ To obtain your twitter credentials, you have to create a new app on https://dev.
 ## Usage
 
 ```
-pm2 start processes.json
+npm start
 ```
 
 To make a snapshot of the current follower list of an user:
 
 ```
-curl -X POST http://localhost:3000/ -d "screen_name=EmilienMiLk"
+curl -X POST http://localhost:3000/ \
+    -H 'Content-Type: application/json' \
+    -d '{"screen_name":"EmilienMiLk"}'
 ```
 
 To get stats from an user:

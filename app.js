@@ -1,26 +1,25 @@
-var config    = require('config')
-  , express   = require('express')
-  , mongoose  = require('mongoose')
-  , routes    = require('./routes')
-  ;
+const config    = require('config');
+const express   = require('express');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const mongoose  = require('mongoose');
+const routes    = require('./routes');
 
-var app = express();
-app.use(express.compress());
-app.use(express.methodOverride());
-app.use(express.bodyParser());
-app.use(express.static(__dirname + '/public'));
-app.use(app.router);
+const app = express();
+app.use(compression());
+app.use(morgan('short'));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 routes(app);
 
-var runApp = function() {
-  app.listen(config.port, function(err) {
-    console.log('MyFollowers is listening to :' + config.port);
-  });
-};
+const {port, mongodb} = config;
+const runApp = () =>
+    app.listen(port, () => console.log('MyFollowers is listening to :' + port));
 
-mongoose.connect(config.mongodb);
 
-var db = mongoose.connection;
+mongoose.connect(mongodb, {useNewUrlParser: true, useCreateIndex: true});
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', runApp);
